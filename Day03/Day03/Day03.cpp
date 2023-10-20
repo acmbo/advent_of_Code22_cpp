@@ -68,18 +68,18 @@ const std::unordered_map<char, int> scores =
 	{'Z' , 52 },
 };
 
-int main()
-{
+
+void part1() {
 
 	string filepath = "C://Users//WegewitzSte//Documents//000_Archiv//cpp//advent_of_Code22_cpp//Day03//Day03//input.txt";
 	vector<string> fileLines;
 	vector<string> scriptInput;
-	
+
 
 	int sucess = readInputString(filepath, fileLines);
 	int finalscore = 0;
 
-	for (int i = 0; i < fileLines.size(); i ++) {
+	for (int i = 0; i < fileLines.size(); i++) {
 
 		string line = fileLines[i];
 		scriptInput.push_back(line);
@@ -92,13 +92,15 @@ int main()
 		string rucksack2 = get<1>(inpunts);
 
 		std:vector<char> foundChars;
-		
+
 		for (char currentChar : rucksack1) {
 
 			bool contains = strContains(rucksack2, currentChar);
-			if (contains == true && vectorContains<char>(foundChars,currentChar) == false )
-				{ foundChars.push_back(currentChar); }
-			
+			if (contains == true && vectorContains<char>(foundChars, currentChar) == false)
+			{
+				foundChars.push_back(currentChar);
+			}
+
 			//std::cout << "Checks " << currentChar << " - " << contains << " " << endl;
 		}
 
@@ -121,6 +123,87 @@ int main()
 	}
 
 	cout << "Final score: " << finalscore;
+}
 
+
+int main()
+{
+	string filepath = "C://Users//WegewitzSte//Documents//000_Archiv//cpp//advent_of_Code22_cpp//Day03//Day03//inputPart2.txt";
+	vector<string> fileLines;
+	vector<string> scriptInput;
+
+
+	int sucess = readInputString(filepath, fileLines);
+	int finalscore = 0;
+	int previousIdx = 0;
+	
+
+	for (int i = 0; i < fileLines.size(); i+= 6) {
+
+		
+
+		string elf  = fileLines[i] ;
+		string elf2 = fileLines[i+1];
+		string elf3 = fileLines[i+2];
+
+		vector<char> foundChars;
+
+		for (char currentChar : elf) {
+
+			bool contains = strContains(elf2, currentChar);
+			bool contains2 = strContains(elf3, currentChar);
+			if (contains == true && contains2 == true && vectorContains<char>(foundChars, currentChar) == false)
+			{
+				foundChars.push_back(currentChar);
+			}
+		}
+
+		
+		string elf4  = fileLines[i+3] ;
+		string elf5 = fileLines[i+4];
+		string elf6 = fileLines[i+5];
+
+		vector<char> foundChars2;
+
+		for (char currentChar : elf4) {
+
+			bool contains3 = strContains(elf5, currentChar);
+			bool contains4= strContains(elf6, currentChar);
+			if (contains3 == true && contains4 == true && vectorContains<char>(foundChars2, currentChar) == false)
+			{
+				foundChars2.push_back(currentChar);
+			}
+		}
+
+		int score = 0;
+
+		for (char c : foundChars) {
+
+			score += scores.at(c);
+			cout << "Found: " << c << endl;
+			cout << "Found score: " << scores.at(c) << endl;
+		}
+
+
+
+		for (char c : foundChars2) {
+			score += scores.at(c);
+			cout << "Found2: " << c << endl;
+			cout << "Found2 score: " << scores.at(c) << endl;
+		}
+
+		finalscore += score;
+
+
+		cout << elf << endl;
+		cout << elf2 << endl;
+		cout << elf3 << endl;
+		cout << elf4 << endl;
+		cout << elf5 << endl;
+		cout << elf6 << endl;
+		cout << "---" << endl;
+	}	
+
+	cout << "Score: " << finalscore << endl;
 	return 0;
 }
